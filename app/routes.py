@@ -9,17 +9,17 @@ def index():
     return greeting
 
 
-# Post Endpoints
+# task Endpoints
 
 # Get All Posts
 @app.route('/task')
 def get_tasks():
-    # Get the posts from storage (fake data -> tomorrow will be db)
+    # Get the tasks from storage 
     task = tasks_list 
     return task
 
 
-# Get a Single Post By ID
+# Get a Single Task By ID
 @app.route('/task/<int:task_id>')
 def get_task(task_id):
     # Get the tasks from storage
