@@ -7,10 +7,10 @@ from flask_jwt_extended import create_access_token,jwt_required, get_jwt_identit
 from werkzeug.security import check_password_hash
 
 
-@app.route('/tasks', methods=['GET']) # Define a route for the /tasks endpoint with the GET method
+@app.route('/tasks', methods=['GET'])
 def get_tasks():
     tasks = Task.query.all()
-    return jsonify([task.to_dict() for task in tasks])
+    return render_template('tasks.html', tasks=tasks)
 
 @app.route('/tasks/<int:task_id>', methods=['GET'])     # Define a route for the /tasks/<task_id> endpoint with the GET method
 def get_task(task_id):
