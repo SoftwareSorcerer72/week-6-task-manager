@@ -23,10 +23,12 @@ class Task(db.Model):
     
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
-    email = db.Column(db.String(120), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
-    date_created = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False, unique=True)
+    username = db.Column(db.String, nullable=False, unique=True)
+    password_hash = db.Column(db.String, nullable=False)
+    date_created = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

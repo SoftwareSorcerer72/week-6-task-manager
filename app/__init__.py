@@ -1,16 +1,16 @@
-from flask import Flask # Import the Flask Class from the Flask module
-from flask_sqlalchemy import SQLAlchemy # Import the SQLAlchemy Class from the flask_sqlalchemy module
-from flask_migrate import Migrate # Import the Migrate Class from the flask_migrate module
+from flask import Flask # Import the Flask class from the flask module
+from flask_sqlalchemy import SQLAlchemy # Import the SQLAlchemy class from the flask_sqlalchemy module
+from flask_migrate import Migrate # Import the Migrate class from the flask_migrate module
 from config import Config # Import the Config class from the config module
+from flask_jwt_extended import JWTManager # Import the JWTManager class from the flask_jwt_extended module
 
+app = Flask(__name__) # Create a new Flask app
+app.config.from_object(Config)  # Set the configuration from the Config class
 
-# Create an instance of Flask called app which will be the central object
-app = Flask(__name__)
-app.config.from_object(Config) # Set the database URI
+app.config['JWT_SECRET_KEY'] = '123456789abc'  # Change this!
+jwt = JWTManager(app)
 
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
-db = SQLAlchemy(app) # Create an instance of the SQLAlchemy class called db
-migrate = Migrate(app, db) # Create an instance of the Migrate class called migrate
-
-# import the routes to the app
-from . import routes, models # Import the routes and models modules from the app package
+from . import routes, models
