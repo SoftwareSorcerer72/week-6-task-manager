@@ -4,13 +4,13 @@
     <title>Tasks</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-primary">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto">
                 <h1 class="my-4 text-center">Tasks Homepage</h1>
                 {% for task in tasks %}
-                    <div class="card mb-4">
+                    <div class="card mb-4 bg-white">
                         <div class="card-body">
                             <h2 class="card-title">{{ task.title }}</h2>
                             <p class="card-text">{{ task.description }}</p>
