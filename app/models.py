@@ -23,8 +23,10 @@ class Task(db.Model):
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, nullable=False, unique=True)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False, unique=True)
+    username = db.Column(db.String, nullable=False, unique=True)
     password_hash = db.Column(db.String, nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
     tasks = db.relationship('Task', backref='user', lazy=True)
@@ -38,8 +40,10 @@ class User(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'username': self.username,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
             'email': self.email,
+            'username': self.username,
             'date_created': self.date_created,
             'tasks': [task.to_dict() for task in self.tasks]
         }

@@ -3,7 +3,7 @@ from . import app
 from datetime import datetime
 from .models import User, Task
 from app import db
-from flask_jwt_extended import create_access_token,jwt_required
+from flask_jwt_extended import create_access_token,jwt_required, get_jwt_identity
 from werkzeug.security import check_password_hash
 
 
@@ -63,11 +63,16 @@ def delete_task(task_id):
 @app.route('/users', methods=['POST'])      # Define a route for the /users endpoint with the POST method
 def create_user():
     data = request.get_json()
-    new_user = User(username=data['username'], email=data['email'])
+    new_user = User(
+        first_name=data['first_name'],
+        last_name=data['last_name'],
+        username=data['username'],
+        email=data['email']
+    )
     new_user.set_password(data['password'])
     db.session.add(new_user)
     db.session.commit()
-    return {"message": "User created"}, 201
+    return jsonify(new_user.to_dict()), 201
 
 @app.route('/users/<int:user_id>', methods=['GET'])     # Define a route for the /users/<user_id> endpoint with the GET method
 def get_user(user_id):
